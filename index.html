@@ -1,0 +1,49 @@
+<body>
+  <div id="output"></div>
+
+<script>
+  const output = document.getElementById('output');
+  let string = '';
+  for (let i = 0; i < 16; i++) {
+    string += '<p>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</p><p>1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</p>';
+  }
+  output.innerHTML = string;
+
+  const binaryNumbers = document.querySelectorAll('p');
+  let currentNumber = 0;
+
+  setInterval(function() {
+    binaryNumbers.forEach((number, index) => {
+      if (index === currentNumber) {
+        number.style.opacity = 1;
+        number.style.transform = 'translateY(0)';
+      } else if (index === currentNumber - 1 || (currentNumber === 0 && index === binaryNumbers.length - 1)) {
+        number.style.opacity = 0;
+        number.style.transform = 'translateY(-20px)';
+      }
+    });
+    currentNumber = (currentNumber + 1) % binaryNumbers.length;
+  }, 200);
+</script>
+
+<style>
+  #output {
+    font-family: monospace;
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  }
+</style>
+</body>
